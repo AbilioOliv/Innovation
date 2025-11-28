@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Softcom - Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        /* Efeito de janela do Windows clássico/software */
+        .window-frame {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+        }
+        .softcom-yellow {
+            background-color: #dcbf3a; 
+        }
+        .softcom-dark-yellow {
+            background-color: #bfa32a;
+        }
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TELA DE LOGIN -->
+    <div id="loginScreen" class="window-frame bg-gray-100 border border-gray-400 rounded-sm p-8 max-w-md w-full mx-4 flex flex-col items-center">
+        <!-- Logo Login -->
+        <div class="flex items-center justify-center mb-8">
+            <!-- Icone removido -->
+            <img src="image_785d1b.png" alt="Softcom Tecnologia" class="h-20">
+        </div>
+
+        <div class="w-full space-y-4">
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-1">Usuário</label>
+                <input type="text" id="username" class="w-full border border-gray-400 p-2 bg-white shadow-inner focus:outline-none focus:border-yellow-600" placeholder="Digite seu usuário">
+            </div>
+            <div>
+                <label class="block text-gray-700 text-sm font-bold mb-1">Senha</label>
+                <input type="password" id="password" class="w-full border border-gray-400 p-2 bg-white shadow-inner focus:outline-none focus:border-yellow-600" placeholder="Digite sua senha">
+            </div>
+            
+            <p id="loginError" class="text-red-600 text-sm font-bold text-center h-5 hidden">Usuário ou senha incorretos!</p>
+
+            <button onclick="checkLogin()" class="w-full softcom-yellow hover:bg-[#c9ae35] border border-gray-500 text-black font-bold py-2 px-4 shadow-sm active:shadow-inner active:translate-y-px transition-all mt-2">
+                ACESSAR
+            </button>
+        </div>
+        <div class="mt-6 text-xs text-gray-500 uppercase tracking-widest">Tecnologia em Sistemas</div>
+    </div>
+
+    <!-- TELA PRINCIPAL (Inicialmente oculta) -->
+    <div id="appScreen" class="hidden window-frame w-full max-w-lg bg-gray-50 border border-gray-400 rounded-sm overflow-hidden relative">
+        
+        <!-- Header Section -->
+        <header class="softcom-yellow p-4 border-b border-black/10 relative">
+            <div class="flex items-center justify-center mb-2">
+                <!-- Icone removido -->
+                <img src="image_785d1b.png" alt="Softcom Tecnologia" class="h-12">
+            </div>
+        </header>
+        
+        <!-- Sub Header -->
+        <div class="softcom-dark-yellow py-1 text-center border-b border-gray-400">
+            <p class="font-bold text-sm text-black/80">Correção de somatório</p>
+        </div>
+
+        <!-- Content Area -->
+        <main class="p-6 space-y-6 bg-gray-100 min-h-[400px]">
+
+            <!-- Step 1: Select XML -->
+            <div class="space-y-2">
+                <label class="block text-xl text-black">
+                    1 = Selecione o XML
+                </label>
+                <div class="flex gap-2">
+                    <input type="text" id="fileNameDisplay" readonly class="w-full border border-gray-400 p-1 bg-white shadow-inner text-sm" placeholder="C:\Documentos\Nota.xml">
+                    <input type="file" id="fileInput" class="hidden" accept=".xml">
+                    <button onclick="document.getElementById('fileInput').click()" class="bg-gray-300 border border-gray-500 hover:bg-gray-400 px-3 py-1 shadow-sm active:shadow-inner">
+                        ...
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 2: Inform Tag -->
+            <div class="space-y-2">
+                <label class="block text-lg text-black leading-tight">
+                    2 = Informe a tag que deseja realizar o somatório
+                </label>
+                <div class="flex gap-2">
+                    <!-- Added a generic placeholder for the tag input -->
+                    <input type="text" class="w-full border border-gray-400 p-1 bg-white shadow-inner" placeholder="vProd">
+                    <!-- Added the small button shown in image, though functionality is unclear, kept for fidelity -->
+                    <button class="bg-gray-300 border border-gray-500 hover:bg-gray-400 px-3 py-1 shadow-sm active:shadow-inner">
+                        ...
+                    </button>
+                </div>
+            </div>
+
+            <!-- Radio Options -->
+            <div class="space-y-3 pt-2">
+                <h3 class="text-xl text-black">Qual passo vai realizar?</h3>
+                
+                <div class="flex flex-col space-y-2 pl-2">
+                    
+                    <!-- Opção 1: Alterar no TXT (Estilo igual ao passo 1) -->
+                    <div class="flex flex-col gap-1">
+                        <div class="flex items-center gap-2">
+                            <input type="radio" name="action" id="opt1" class="w-4 h-4 text-yellow-600 focus:ring-yellow-500 border-gray-300">
+                            <label for="opt1" class="text-lg text-black">Deseja alterar no TXT</label>
+                        </div>
+                        <!-- Campo de input abaixo, igual ao passo 1 -->
+                        <div class="flex gap-2 pl-6">
+                            <input type="text" class="w-full border border-gray-400 p-1 bg-white shadow-inner text-sm" placeholder="Informe o valor">
+                            <button class="bg-gray-300 border border-gray-500 hover:bg-gray-400 px-3 py-1 shadow-sm active:shadow-inner">
+                                ...
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <input type="radio" name="action" id="opt2" class="w-4 h-4 text-yellow-600 focus:ring-yellow-500 border-gray-300">
+                        <label for="opt2" class="text-lg text-black">Deseja alterar no front</label>
+                        <button class="bg-gray-300 border border-gray-500 text-xs px-2 py-0.5 ml-2 shadow-sm">...</button>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <input type="radio" name="action" id="opt3" class="w-4 h-4 text-yellow-600 focus:ring-yellow-500 border-gray-300" checked>
+                        <label for="opt3" class="text-lg text-black">Apenas exibir somatório</label>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="border-gray-300 mt-4">
+
+            <!-- Action Button -->
+            <div class="flex justify-center">
+                <button onclick="processAction()" class="bg-gray-300 hover:bg-gray-400 border-2 border-gray-400 border-b-gray-500 border-r-gray-500 text-black px-8 py-2 text-lg active:border-t-gray-500 active:border-l-gray-500 active:border-b-gray-300 active:border-r-gray-300 shadow-sm transition-colors">
+                    Confirmar
+                </button>
+            </div>
+
+        </main>
+
+        <!-- Footer Progress Bar Placeholder -->
+        <footer class="bg-gray-300 p-2 border-t border-gray-400 h-8 w-full flex items-center">
+            <div id="progressBar" class="h-4 bg-green-600 w-0 transition-all duration-1000"></div>
+        </footer>
+
+    </div>
+
+    <!-- Notification Modal (Hidden by default) -->
+    <div id="modal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div class="bg-white p-6 rounded shadow-lg max-w-sm w-full border-l-4 border-yellow-500">
+            <h3 class="text-lg font-bold mb-2">Sucesso</h3>
+            <p id="modalMsg">Operação realizada com sucesso.</p>
+            <div class="mt-4 flex justify-end">
+                <button onclick="closeModal()" class="bg-gray-800 text-white px-4 py-1 rounded hover:bg-gray-700">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // --- LOGIN LOGIC ---
+        function checkLogin() {
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+            const errorMsg = document.getElementById('loginError');
+
+            if (user === 'suporte' && pass === 'qaz@123') {
+                // Success
+                document.getElementById('loginScreen').classList.add('hidden');
+                document.getElementById('appScreen').classList.remove('hidden');
+            } else {
+                // Error
+                errorMsg.classList.remove('hidden');
+                // Shake effect logic could go here
+            }
+        }
+        
+        // Allow Enter key to submit login
+        document.getElementById('password').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                checkLogin();
+            }
+        });
+
+        // --- APP LOGIC ---
+
+        // File Input Logic
+        const fileInput = document.getElementById('fileInput');
+        const fileNameDisplay = document.getElementById('fileNameDisplay');
+
+        fileInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                fileNameDisplay.value = this.files[0].name;
+            }
+        });
+
+        // Simulation Logic
+        function processAction() {
+            const file = fileInput.files[0];
+            const progressBar = document.getElementById('progressBar');
+            
+            // Simple validation simulation
+            if (!file && fileNameDisplay.value === "") {
+                showModal("Por favor, selecione um arquivo XML primeiro.");
+                return;
+            }
+
+            // Animate progress bar
+            progressBar.style.width = "0%";
+            setTimeout(() => { progressBar.style.width = "40%"; }, 200);
+            setTimeout(() => { progressBar.style.width = "80%"; }, 600);
+            setTimeout(() => { 
+                progressBar.style.width = "100%"; 
+                setTimeout(() => {
+                    showModal("Processamento concluído! As alterações foram salvas.");
+                    progressBar.style.width = "0%"; // Reset
+                }, 500);
+            }, 1000);
+        }
+
+        // Modal Logic
+        const modal = document.getElementById('modal');
+        const modalMsg = document.getElementById('modalMsg');
+
+        function showModal(message) {
+            modalMsg.textContent = message;
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
